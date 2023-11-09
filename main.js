@@ -1,24 +1,39 @@
 import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+import Chart from 'chart.js/auto';
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+const canvas = document.getElementById('myChart');
 
-setupCounter(document.querySelector('#counter'))
+
+const data = {
+  labels: [],
+  datasets: [{
+    label: '# of Votes',
+    data: [],
+    borderWidth: 1,
+    fill: 'origin'
+  }],
+  
+}
+const config = {
+  type: 'line',
+  options: {
+    responsive: true
+  },
+  data
+}
+const chart = new Chart(canvas,config)
+
+function addData(){
+  console.log("addData")
+  let dato = parseInt(Math.random()*1000,10)
+  const data = chart.data;
+  data.labels.push(dato)
+  data.datasets.at(0).data.push(dato)
+  chart.update()
+}
+
+setInterval(addData,2000)
+
+class Data{
+
+}
