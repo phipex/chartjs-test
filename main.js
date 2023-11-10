@@ -18,6 +18,11 @@ button.addEventListener("click", () => {
   }
   interval = setInterval(addData,2000);
 });
+
+salir.addEventListener("click", () => {
+  partida.salir()
+});
+
 const data = {
   labels: [],
   datasets: [{
@@ -45,18 +50,27 @@ const config = {
 class Partida{
   final
   step = 0
+  steps = []
+  selection;
   constructor(){
     this.final = Math.round(Math.random() * 15)
     
   }
 
+  salir(){
+    this.selection = this.steps[this.steps.length - 1]
+  }
+
   nextValue(){
     if(this.step === this.final){
       throw new Error("la partida ha terminado")
-
+      
     }
     this.step++
-    return parseInt(Math.random()*100,10)
+    const newValue = parseInt(Math.random() * 100, 10);
+    this.steps.push(newValue)
+    
+    return newValue
   }
 }
 const chart = new Chart(canvas,config)
